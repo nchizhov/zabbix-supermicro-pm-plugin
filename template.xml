@@ -122,6 +122,7 @@ Repository: https://github.com/nchizhov/zabbix-supermicro-pm-plugin</description
                             <uuid>6cfeb448d3ad400db4ee73e88fb8366d</uuid>
                             <name>Power Supply {#MODULE} PMBus Revision</name>
                             <key>smpm.get[{#MODULE},PMBus Revision]</key>
+                            <delay>6h</delay>
                             <history>365d</history>
                             <value_type>TEXT</value_type>
                             <trends>0</trends>
@@ -131,6 +132,7 @@ Repository: https://github.com/nchizhov/zabbix-supermicro-pm-plugin</description
                             <uuid>7c0179b6698e459290e94ab3be974e03</uuid>
                             <name>Power Supply {#MODULE} PWS Module Number</name>
                             <key>smpm.get[{#MODULE},PWS Module Number]</key>
+                            <delay>6h</delay>
                             <history>365d</history>
                             <value_type>TEXT</value_type>
                             <trends>0</trends>
@@ -140,6 +142,7 @@ Repository: https://github.com/nchizhov/zabbix-supermicro-pm-plugin</description
                             <uuid>3c59587dc5a84f88848f0119285296f1</uuid>
                             <name>Power Supply {#MODULE} PWS Revision</name>
                             <key>smpm.get[{#MODULE},PWS Revision]</key>
+                            <delay>6h</delay>
                             <history>365d</history>
                             <value_type>TEXT</value_type>
                             <trends>0</trends>
@@ -149,6 +152,7 @@ Repository: https://github.com/nchizhov/zabbix-supermicro-pm-plugin</description
                             <uuid>f9344bfbaa3b4fb0926b3d6161b4ab9a</uuid>
                             <name>Power Supply {#MODULE} PWS Serial Number</name>
                             <key>smpm.get[{#MODULE},PWS Serial Number]</key>
+                            <delay>6h</delay>
                             <history>365d</history>
                             <value_type>TEXT</value_type>
                             <trends>0</trends>

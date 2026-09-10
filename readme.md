@@ -11,7 +11,7 @@
 
 ### Installation 
 1. Download latest release asset https://github.com/nchizhov/zabbix-supermicro-pm-plugin/releases for your OS and arch
-2. Download plugin config file ```smpm.conf``` from https://raw.githubusercontent.com/nchizhov/zabbix-supermicro-pm-plugin/refs/heads/main/smpm.conf and place it to Zabbix Agent 2 ```zabbix_agent2.d/plugin.d``` folder
+2. Download plugin config file ```smpm.conf``` from https://github.com/nchizhov/zabbix-supermicro-pm-plugin/releases/latest/download/smpm.conf and place it to Zabbix Agent 2 ```zabbix_agent2.d/plugin.d``` folder
 3. Edit ```smpm.conf```:
    - ```Plugins.SMIPMIps.System.Path``` - path to downloaded plugin executable file
    - ```Plugins.SMIPMIps.IPMITool``` - path to dowloaded IPMICFG executable file
@@ -28,5 +28,5 @@
       where
       - ```<zabbix_user>``` - user for Zabbix Agent 2 service\
       - ```<IPMICFG_path>``` - path to IPMICFG executable file
-5. Import downloaded template ```template.xml``` from repository https://raw.githubusercontent.com/nchizhov/zabbix-supermicro-pm-plugin/refs/heads/master/template.xml to Zabbix Server Templates
+5. Import downloaded template ```template.xml``` from repository https://github.com/nchizhov/zabbix-supermicro-pm-plugin/releases/latest/download/template.xml to Zabbix Server Templates
 6. Use imported template for needed hosts
