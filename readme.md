@@ -26,7 +26,7 @@
       <zabbix_user> ALL=(ALL) NOPASSWD: <IPMICFG_path> -pminfo
       ```
       where
-      - ```<zabbix_user>``` - user for Zabbix Agent 2 service\
+      - ```<zabbix_user>``` - user for Zabbix Agent 2 service
       - ```<IPMICFG_path>``` - path to IPMICFG executable file
 5. Import downloaded template ```template.xml``` from repository https://github.com/nchizhov/zabbix-supermicro-pm-plugin/releases/latest/download/template.xml to Zabbix Server Templates
 6. Use imported template for needed hosts
