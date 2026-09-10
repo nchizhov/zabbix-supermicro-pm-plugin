@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>7.0</version>
+    <template_groups>
+        <template_group>
+            <uuid>87306e1a49634bee802877643192b4cd</uuid>
+            <name>IPMI</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>dd99aa28a9b04cf6b2c31ecc7fa6e38a</uuid>
+            <template>sm_ipmi_powersupply</template>
+            <name>SuperMicro IPMI: Power Supply</name>
+            <description>SuperMicro IPMI: Power Supply
+===================
+
+Author: Chizhov Nikolay
+Repository: https://github.com/nchizhov/zabbix-supermicro-pm-plugin</description>
+            <groups>
+                <group>
+                    <name>IPMI</name>
+                </group>
+            </groups>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>8eb98d1b08bf4fd5810cace46560e487</uuid>
+                    <name>Power Supply Modules Discovery</name>
+                    <key>smpm.discovery</key>
+                    <delay>2h</delay>
+                    <description>IPMI Power Supply Modules Discovery</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>e267edd6a7774d66852eb2b85b82e18b</uuid>
+                            <name>Power Supply {#MODULE} Fan 1 Speed</name>
+                            <key>smpm.get[{#MODULE},Fan 1]</key>
+                            <history>365d</history>
+                            <units>RPM</units>
+                            <description>IPMI Power Supply Module {#MODULE} Fan 1 Speed</description>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>fcef024e28864e26a9b622471a3075f5</uuid>
+                                    <expression>abs(last(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 1]) - avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 1],#5)) &gt; (avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 1],#5) * 0.3)</expression>
+                                    <name>Power Supply {#MODULE} Fan 1 Speed Abnormal on {HOST.NAME}</name>
+                                    <opdata>Value: {ITEM.LASTVALUE1} RPM</opdata>
+                                    <priority>HIGH</priority>
+                                    <description>Power Supply Fan 1 Speed Abnormal</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>34d53e5f347c4a2ab986381e3b1caba3</uuid>
+                            <name>Power Supply {#MODULE} Fan 2 Speed</name>
+                            <key>smpm.get[{#MODULE},Fan 2]</key>
+                            <history>365d</history>
+                            <units>RPM</units>
+                            <description>IPMI Power Supply Module {#MODULE} Fan 2 Speed</description>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>35a22646505e46b181ee37bb61d64bdf</uuid>
+                                    <expression>abs(last(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 2]) - avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 2],#5)) &gt; (avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 2],#5) * 0.3)</expression>
+                                    <name>Power Supply {#MODULE} Fan 2 Speed Abnormal on {HOST.NAME}</name>
+                                    <opdata>Value: {ITEM.LASTVALUE1} RPM</opdata>
+                                    <priority>HIGH</priority>
+                                    <description>Power Supply Fan 2 Speed Abnormal</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>e3b753b2325e4776a6d359f635078c0f</uuid>
+                            <name>Power Supply {#MODULE} Input Current</name>
+                            <key>smpm.get[{#MODULE},Input Current]</key>
+                            <history>365d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>A</units>
+                            <description>IPMI Power Supply Module {#MODULE} Input Current</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>91c2880bac834ad1949f0b7680114ed0</uuid>
+                            <name>Power Supply {#MODULE} Input Power</name>
+                            <key>smpm.get[{#MODULE},Input Power]</key>
+                            <history>365d</history>
+                            <units>W</units>
+                            <description>IPMI Power Supply Module {#MODULE} Input Power</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>25815cb2638947a190fe3223a0bcd65e</uuid>
+                            <name>Power Supply {#MODULE} Input Voltage</name>
+                            <key>smpm.get[{#MODULE},Input Voltage]</key>
+                            <history>365d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>V</units>
+                            <description>IPMI Power Supply Module {#MODULE} Input Voltage</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>698ffc742c0d45c8914d6458da0b7418</uuid>
+                            <name>Power Supply {#MODULE} Main Output Current</name>
+                            <key>smpm.get[{#MODULE},Main Output Current]</key>
+                            <history>365d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>A</units>
+                            <description>IPMI Power Supply Module {#MODULE} Main Output Current</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>6e981474cdcf4d22bc6e0b429d6d8546</uuid>
+                            <name>Power Supply {#MODULE} Main Output Power</name>
+                            <key>smpm.get[{#MODULE},Main Output Power]</key>
+                            <history>365d</history>
+                            <units>W</units>
+                            <description>IPMI Power Supply Module {#MODULE} Main Output Power</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>40f5e303e0854138b8e1d8ba82f37b17</uuid>
+                            <name>Power Supply {#MODULE} Main Output Voltage</name>
+                            <key>smpm.get[{#MODULE},Main Output Voltage]</key>
+                            <history>365d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>V</units>
+                            <description>IPMI Power Supply Module {#MODULE} Main Output Voltage</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>6cfeb448d3ad400db4ee73e88fb8366d</uuid>
+                            <name>Power Supply {#MODULE} PMBus Revision</name>
+                            <key>smpm.get[{#MODULE},PMBus Revision]</key>
+                            <history>365d</history>
+                            <value_type>TEXT</value_type>
+                            <trends>0</trends>
+                            <description>IPMI Power Supply Module {#MODULE} PMBus Revision</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>7c0179b6698e459290e94ab3be974e03</uuid>
+                            <name>Power Supply {#MODULE} PWS Module Number</name>
+                            <key>smpm.get[{#MODULE},PWS Module Number]</key>
+                            <history>365d</history>
+                            <value_type>TEXT</value_type>
+                            <trends>0</trends>
+                            <description>IPMI Power Supply Module {#MODULE} PWS Module Number</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>3c59587dc5a84f88848f0119285296f1</uuid>
+                            <name>Power Supply {#MODULE} PWS Revision</name>
+                            <key>smpm.get[{#MODULE},PWS Revision]</key>
+                            <history>365d</history>
+                            <value_type>TEXT</value_type>
+                            <trends>0</trends>
+                            <description>IPMI Power Supply Module {#MODULE} PWS Revision</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>f9344bfbaa3b4fb0926b3d6161b4ab9a</uuid>
+                            <name>Power Supply {#MODULE} PWS Serial Number</name>
+                            <key>smpm.get[{#MODULE},PWS Serial Number]</key>
+                            <history>365d</history>
+                            <value_type>TEXT</value_type>
+                            <trends>0</trends>
+                            <description>IPMI Power Supply Module {#MODULE} PWS Serial Number</description>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>a0410c10dfd144ccb8d8b37fced5e55c</uuid>
+                            <name>Power Supply {#MODULE} Status</name>
+                            <key>smpm.get[{#MODULE},Status]</key>
+                            <history>365d</history>
+                            <value_type>TEXT</value_type>
+                            <trends>0</trends>
+                            <description>IPMI Power Supply Module {#MODULE} Status</description>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>952aed69b3e243a4a7583dd095d7c26b</uuid>
+                                    <expression>last(/sm_ipmi_powersupply/smpm.get[{#MODULE},Status])&lt;&gt;&quot;OK&quot;</expression>
+                                    <name>Power Supply {#MODULE} Failed Status on {HOST.NAME}</name>
+                                    <opdata>Current Status: {ITEM.LASTVALUE1}</opdata>
+                                    <priority>HIGH</priority>
+                                    <description>Power Supply Failed Status</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>a772c2b13444467a840f8c0044a54d9e</uuid>
+                            <name>Power Supply {#MODULE} Temperature 1</name>
+                            <key>smpm.get[{#MODULE},Temperature 1]</key>
+                            <history>365d</history>
+                            <units>C</units>
+                            <description>IPMI Power Supply Module {#MODULE} Temperature 1</description>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>f0bf24f34f2143aab8e32eec5f24d68a</uuid>
+                                    <expression>abs(last(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 1]) - avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 1],#5)) &gt; (avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 1],#5) * 0.3)</expression>
+                                    <name>Power Supply {#MODULE} Temp 1 Abnormal on {HOST.NAME}</name>
+                                    <opdata>Value: {ITEM.LASTVALUE1} C</opdata>
+                                    <priority>HIGH</priority>
+                                    <description>Power Supply Temp 1 Abnormal</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>46b85c729b3d47358f705db67a3cff5f</uuid>
+                            <name>Power Supply {#MODULE} Temperature 2</name>
+                            <key>smpm.get[{#MODULE},Temperature 2]</key>
+                            <history>365d</history>
+                            <units>C</units>
+                            <description>IPMI Power Supply Module {#MODULE} Temperature 2</description>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>c08ab7948b9f45f6883eef436691f355</uuid>
+                                    <expression>abs(last(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 2]) - avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 2],#5)) &gt; (avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 2],#5) * 0.3)</expression>
+                                    <name>Power Supply {#MODULE} Temp 2 Abnormal on {HOST.NAME}</name>
+                                    <opdata>Value: {ITEM.LASTVALUE1} C</opdata>
+                                    <priority>HIGH</priority>
+                                    <description>Power Supply Temp 2 Abnormal</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <uuid>e48c052c75d244f9884830ba5660146d</uuid>
+                            <name>Power Supply {#MODULE} Fans Speeds</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>sm_ipmi_powersupply</host>
+                                        <key>smpm.get[{#MODULE},Fan 1]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>274482</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>sm_ipmi_powersupply</host>
+                                        <key>smpm.get[{#MODULE},Fan 2]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <uuid>5cd71d8099e54177891c2e030e1a80f6</uuid>
+                            <name>Power Supply {#MODULE} Input Voltage</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>sm_ipmi_powersupply</host>
+                                        <key>smpm.get[{#MODULE},Input Voltage]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <uuid>eebb4cf56dde4f1f9abf12dbd01f84c0</uuid>
+                            <name>Power Supply {#MODULE} Output Voltage</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>sm_ipmi_powersupply</host>
+                                        <key>smpm.get[{#MODULE},Main Output Voltage]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <uuid>0543f50c020a4d8c83457a964fecfa49</uuid>
+                            <name>Power Supply {#MODULE} Power</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>sm_ipmi_powersupply</host>
+                                        <key>smpm.get[{#MODULE},Input Power]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>274482</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>sm_ipmi_powersupply</host>
+                                        <key>smpm.get[{#MODULE},Main Output Power]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <uuid>cff31098c3ce44d6b2b8b788aa116f6f</uuid>
+                            <name>Power Supply {#MODULE} Power Supply Currents</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>sm_ipmi_powersupply</host>
+                                        <key>smpm.get[{#MODULE},Input Current]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>274482</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>sm_ipmi_powersupply</host>
+                                        <key>smpm.get[{#MODULE},Main Output Current]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <uuid>606e2516499f4dd0acd1e2ccc6be6278</uuid>
+                            <name>Power Supply {#MODULE} Temperatures</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>sm_ipmi_powersupply</host>
+                                        <key>smpm.get[{#MODULE},Temperature 1]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>274482</color>
+                                    <calc_fnc>ALL</calc_fnc>
+                                    <item>
+                                        <host>sm_ipmi_powersupply</host>
+                                        <key>smpm.get[{#MODULE},Temperature 2]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <tags>
+                <tag>
+                    <tag>Application</tag>
+                    <value>IPMI PowerSupply</value>
+                </tag>
+            </tags>
+        </template>
+    </templates>
+</zabbix_export>

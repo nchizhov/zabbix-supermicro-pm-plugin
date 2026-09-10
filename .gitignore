@@ -1,0 +1,10 @@
+smpm.exe
+smpm
+.DS_Store
+Thumbs.db
+*.lnk
+
+[Dd]esktop.ini
+
+.idea/
+.vscode/
