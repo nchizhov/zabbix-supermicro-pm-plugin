@@ -8,6 +8,7 @@ import (
 )
 
 type Data struct {
+	isRunning bool
 	updatedAt time.Time
 	data      map[string]any
 }
@@ -15,12 +16,27 @@ type Data struct {
 func (data *Data) Update(newData map[string]any) {
 	data.updatedAt = time.Now()
 	data.data = newData
+	data.isRunning = false
+	time.Sleep(500 * time.Millisecond)
+}
+
+func (data *Data) SetRunning(status bool) {
+	data.isRunning = status
+}
+
+func (data *Data) IsRunning() bool {
+	return data.isRunning
+}
+
+func (data *Data) IsOutDated() bool {
+	currentDate := time.Now().Add(-1 * time.Minute)
+	if data.updatedAt.Before(currentDate) {
+		return true
+	}
+	return false
 }
 
 func (data *Data) GetDiscovery() (any, error) {
-	if err := checkOutDate(data.updatedAt); err != nil {
-		return nil, err
-	}
 	var discoveryData []map[string]string
 	for moduleName := range data.data {
 		tmpData := map[string]string{
@@ -36,9 +52,6 @@ func (data *Data) GetDiscovery() (any, error) {
 }
 
 func (data *Data) GetFieldData(module string, field string) (any, error) {
-	if err := checkOutDate(data.updatedAt); err != nil {
-		return nil, err
-	}
 	if moduleData, ok := data.data[module]; ok {
 		if fieldData, ok := moduleData.(map[string]any)[field]; ok {
 			return fieldData, nil
@@ -48,12 +61,4 @@ func (data *Data) GetFieldData(module string, field string) (any, error) {
 	} else {
 		return nil, fmt.Errorf("not found power supply: %s", module)
 	}
-}
-
-func checkOutDate(compareDate time.Time) error {
-	currentDate := time.Now().Add(-5 * time.Minute)
-	if compareDate.Before(currentDate) {
-		return errors.New("outdated data: maybe not working ipmitool?")
-	}
-	return nil
 }

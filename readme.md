@@ -7,7 +7,7 @@
 
 ### Requirements:
 - Zabbix Agent 2 - version 6.0 LTS and higher
-- IPMICFG Tool from SuperMicro Site for required OS: https://www.supermicro.com/en/support/resources/downloadcenter/smsdownload
+- IPMICFG Tool from SuperMicro Site for required OS: https://www.supermicro.com/en/support/resources/downloadcenter/smsdownload (For old motherborads: https://www.supermicro.com/wdl/utility/IPMICFG/Previous%20Releases/)
 
 ### Installation 
 1. Download latest release asset https://github.com/nchizhov/zabbix-supermicro-pm-plugin/releases for your OS and arch
@@ -15,7 +15,6 @@
 3. Edit ```smpm.conf```:
    - ```Plugins.SMIPMIps.System.Path``` - path to downloaded plugin executable file
    - ```Plugins.SMIPMIps.IPMITool``` - path to dowloaded IPMICFG executable file
-   - ```Plugins.SMIPMIps.CollectInterval``` - IPMICFG collect data interval in minutes ```1-30```, default: ```1```
 4. Additional steps for unix-like systems:
    1. Set exetubale flag for dowloaded plugin:
       ```bash 

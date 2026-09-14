@@ -22,11 +22,9 @@ const (
 type smpm struct {
 	plugin.Base
 
-	config         *PluginConfig
-	metrics        map[string]*smpmMetric
-	IPMICollect    chan struct{}
-	IPMICollectCtx context.Context
-	IPMIData       ipmi.Data
+	config   *PluginConfig
+	metrics  map[string]*smpmMetric
+	IPMIData ipmi.Data
 }
 
 type smpmMetric struct {
@@ -35,7 +33,7 @@ type smpmMetric struct {
 	Handler     string
 }
 
-func New(ctx context.Context) (*smpm, error) {
+func New() (*smpm, error) {
 	p := &smpm{}
 
 	err := log.Open(log.Console, log.Info, "", 0)
@@ -44,14 +42,11 @@ func New(ctx context.Context) (*smpm, error) {
 	}
 
 	p.Logger = log.New(Name)
-	p.IPMICollectCtx = ctx
 
 	err = p.registerMetrics()
 	if err != nil {
 		return nil, errs.Wrap(err, "plugin failed to register metrics")
 	}
-
-	p.IPMICollect = make(chan struct{})
 
 	return p, nil
 }
@@ -62,30 +57,11 @@ func (p *smpm) Start() {
 	if isNewUpdate {
 		p.Infof(updateInfo)
 	}
-	p.collectInfo()
-	go func() {
-		ticker := time.NewTicker(p.config.CollectInterval * time.Minute)
-		defer ticker.Stop()
-
-		p.Infof("collector started")
-
-		for {
-			select {
-			case <-ticker.C:
-				p.collectInfo()
-			case <-p.IPMICollect:
-				p.Infof("collector stopped")
-				return
-			}
-		}
-	}()
-
 	p.Infof("start plugin %s", Name)
 }
 
 // Stop
 func (p *smpm) Stop() {
-	close(p.IPMICollect)
 	p.Infof("stop plugin %s", Name)
 }
 
@@ -114,6 +90,13 @@ func (p *smpm) Export(
 		if totalParams != metric.Params {
 			return nil, errs.Errorf("incorrect number of params. Required %d", metric.Params)
 		}
+		support.SleepRandomBetween(1000, 4000)
+		p.waitRunning(ctx)
+		if p.IPMIData.IsOutDated() {
+			if err := p.collectInfo(ctx); err != nil {
+				return nil, err
+			}
+		}
 		data, err := ipmi.ReflectHandler(&p.IPMIData, params, metric.Handler)
 		if err != nil {
 			return nil, err
@@ -129,11 +112,30 @@ func (p *smpm) Export(
 	return nil, errs.Errorf("unknown metric key %q", key)
 }
 
-func (p *smpm) collectInfo() {
-	pmData, err := ipmi.GetInfo(p.IPMICollectCtx, p.config.IPMITool)
-	if err != nil {
-		p.Infof("collect info error: %s", err.Error())
-	} else {
-		p.IPMIData.Update(pmData)
+func (p *smpm) waitRunning(ctx context.Context) {
+	waitCtx, cancel := context.WithTimeout(ctx, 30*time.Second)
+	defer cancel()
+
+	for {
+		if !p.IPMIData.IsRunning() {
+			break
+		}
+
+		select {
+		case <-waitCtx.Done():
+			return
+		case <-time.After(500 * time.Millisecond):
+		}
 	}
+}
+
+func (p *smpm) collectInfo(ctx context.Context) error {
+	p.IPMIData.SetRunning(true)
+	pmData, err := ipmi.GetInfo(ctx, p.config.IPMITool)
+	if err != nil {
+		p.IPMIData.SetRunning(false)
+		return errs.Errorf("collect info error: %s", err.Error())
+	}
+	p.IPMIData.Update(pmData)
+	return nil
 }

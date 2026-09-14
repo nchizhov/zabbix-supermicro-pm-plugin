@@ -42,7 +42,7 @@ Repository: https://github.com/nchizhov/zabbix-supermicro-pm-plugin</description
                                     <uuid>fcef024e28864e26a9b622471a3075f5</uuid>
                                     <expression>abs(last(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 1]) - avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 1],#5)) &gt; (avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 1],#5) * 0.3)</expression>
                                     <name>Power Supply {#MODULE} Fan 1 Speed Abnormal on {HOST.NAME}</name>
-                                    <opdata>Value: {ITEM.LASTVALUE1} RPM</opdata>
+                                    <opdata>Value: {ITEM.LASTVALUE1}</opdata>
                                     <priority>HIGH</priority>
                                     <description>Power Supply Fan 1 Speed Abnormal</description>
                                 </trigger_prototype>
@@ -60,7 +60,7 @@ Repository: https://github.com/nchizhov/zabbix-supermicro-pm-plugin</description
                                     <uuid>35a22646505e46b181ee37bb61d64bdf</uuid>
                                     <expression>abs(last(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 2]) - avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 2],#5)) &gt; (avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Fan 2],#5) * 0.3)</expression>
                                     <name>Power Supply {#MODULE} Fan 2 Speed Abnormal on {HOST.NAME}</name>
-                                    <opdata>Value: {ITEM.LASTVALUE1} RPM</opdata>
+                                    <opdata>Value: {ITEM.LASTVALUE1}</opdata>
                                     <priority>HIGH</priority>
                                     <description>Power Supply Fan 2 Speed Abnormal</description>
                                 </trigger_prototype>
@@ -189,7 +189,7 @@ Repository: https://github.com/nchizhov/zabbix-supermicro-pm-plugin</description
                                     <uuid>f0bf24f34f2143aab8e32eec5f24d68a</uuid>
                                     <expression>abs(last(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 1]) - avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 1],#5)) &gt; (avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 1],#5) * 0.3)</expression>
                                     <name>Power Supply {#MODULE} Temp 1 Abnormal on {HOST.NAME}</name>
-                                    <opdata>Value: {ITEM.LASTVALUE1} C</opdata>
+                                    <opdata>Value: {ITEM.LASTVALUE1}</opdata>
                                     <priority>HIGH</priority>
                                     <description>Power Supply Temp 1 Abnormal</description>
                                 </trigger_prototype>
@@ -207,7 +207,7 @@ Repository: https://github.com/nchizhov/zabbix-supermicro-pm-plugin</description
                                     <uuid>c08ab7948b9f45f6883eef436691f355</uuid>
                                     <expression>abs(last(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 2]) - avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 2],#5)) &gt; (avg(/sm_ipmi_powersupply/smpm.get[{#MODULE},Temperature 2],#5) * 0.3)</expression>
                                     <name>Power Supply {#MODULE} Temp 2 Abnormal on {HOST.NAME}</name>
-                                    <opdata>Value: {ITEM.LASTVALUE1} C</opdata>
+                                    <opdata>Value: {ITEM.LASTVALUE1}</opdata>
                                     <priority>HIGH</priority>
                                     <description>Power Supply Temp 2 Abnormal</description>
                                 </trigger_prototype>

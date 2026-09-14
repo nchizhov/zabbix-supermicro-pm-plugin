@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"os"
@@ -38,9 +37,7 @@ func main() {
 		Alphatag:         PLUGIN_VERSION_RC,
 	}
 
-	ctx := context.Background()
-
-	p, err := zbplugin.New(ctx)
+	p, err := zbplugin.New()
 	if err != nil {
 		exitWithError(errs.Wrap(err, "failed to initialize plugin: "))
 	}

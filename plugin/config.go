@@ -3,7 +3,6 @@ package zbplugin
 import (
 	"os"
 	"support"
-	"time"
 
 	"golang.zabbix.com/sdk/conf"
 	"golang.zabbix.com/sdk/errs"
@@ -21,9 +20,8 @@ type session struct {
 }
 
 type PluginConfig struct {
-	System          plugin.SystemOptions `conf:"name=System,optional"`
-	IPMITool        string               `conf:"name=IPMITool"`
-	CollectInterval time.Duration        `conf:"name=CollectInterval,optional,range=1:30,default=1"`
+	System   plugin.SystemOptions `conf:"name=System,optional"`
+	IPMITool string               `conf:"name=IPMITool"`
 
 	Sessions map[string]session `conf:"optional"`
 }
